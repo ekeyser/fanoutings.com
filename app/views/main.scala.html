@@ -1,5 +1,4 @@
-@(Games: Map[String, Map[String, String]])
-
+@(Games: Array[Map[String, String]])
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -35,17 +34,17 @@
         }
 
         .title {
-        font-size : 96px ;
-        margin-bottom : 40px ;
+        font-size : xx-large ;
+        margin-bottom : large ;
         }
 
         .quote {
-        font-size : 24px ;
+        font-size : large ;
         }
 
         .game {
         color : #333 ;
-        font-size : 24px ;
+        font-size : large ;
         }
 
         .cardinals {
@@ -59,7 +58,7 @@
         .matchups-container {
         text-align : left ;
         color : #333 ;
-        font-size : 18px ;
+        font-size : larger ;
         }
 
         .header {
@@ -132,26 +131,26 @@
                             <td>Interest Level</td>
                         </tr>
                         @for(Game <- Games) {
-                        <tr>
-                            <td>@Game._2("dow")</td>
-                            <td>@Game._2("month")&nbsp;@Game._2("day")</td>
-                            <td>@Game._2("hour"):@Game._2("minute")&nbsp;</td>
-                            <td class="@Game._2("name").toLowerCase"><span class="teamname">@Game._2("city")&nbsp;@Game._2("name")</span></td>
-                            <td class="interests">
-                                <label for="interest_yes_@Game._1" class="cb-enable selected">
-                                    <span>Yes</span>
-                                </label>
-                                <input type="radio" id="interest_yes_@Game._2("id_visitor")" name="interest_@Game._1" value="yes" />&nbsp;&nbsp;
-                                <label for="interest_maybe_@Game._1" class="cb-disable">
-                                    <span>Maybe</span>
-                                </label>
-                                <input type="radio" id="interest_maybe_@Game._1" name="interest_@Game._1" value="maybe" />&nbsp; &nbsp;
-                                <label for="interest_no_@Game._1" class="cb-disable">
-                                    <span>No</span>
-                                </label>
-                                <input type="radio" id="interest_no_@Game._1" name="interest_@Game._1" value="no" />
-                    </td>
-                    </tr>
+                            <tr>
+                                <td>@Game("dow")</td>
+                                <td>@Game("month") &nbsp; @Game("day")</td>
+                                <td>@Game("hour"):@Game("minute")&nbsp;</td>
+                                <td class="@Game("name").toLowerCase"><span class="teamname">@Game("city") &nbsp; @Game("name")</span></td>
+                                <td class="interests">
+                                    <label for="interest_yes_@Game("gameid")" class="cb-enable selected">
+                                        <span>Yes</span>
+                                    </label>
+                                    <input type="radio" id="interest_yes_@Game("gameid")" name="interest_@Game("gameid")" value="yes" /> &nbsp;&nbsp;
+                                    <label for="interest_maybe_@Game("gameid")" class="cb-disable">
+                                        <span>Maybe</span>
+                                    </label>
+                                    <input type="radio" id="interest_maybe_@Game("gameid")" name="interest_@Game("gameid")" value="maybe" /> &nbsp; &nbsp;
+                                    <label for="interest_no_@Game("gameid")" class="cb-disable">
+                                        <span>No</span>
+                                    </label>
+                                    <input type="radio" id="interest_no_@Game("gameid")" name="interest_@Game("gameid")" value="no" />
+                                </td>
+                            </tr>
                         }
                     </table>
                 </div>
@@ -163,7 +162,7 @@
         <script>
 
     $(document).ready(function () {
-        $(".interests").hide();
+        $("input").prop("disabled", true);
 
         $(".cb-enable").click(function () {
             var parent = $(this).parents('.switch');
@@ -181,7 +180,7 @@
 
     function showInterests() {
 
-        $('.interests').show();
+        $('input').prop("disabled", false);
 
     }
 
@@ -264,6 +263,7 @@
 
     };
 
+
     // Load the SDK asynchronously
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -286,6 +286,18 @@
         });
     }
 </script>
+
+        <script>
+function fbLogout() {
+        FB.logout(function (response) {
+            //Do what ever you want here when logged out like reloading the page
+            window.location.reload();
+        });
+    }
+</script>
+
+        <span id="fbLogout" onclick="fbLogout()"><a class="fb_button fb_button_medium"><span class="fb_button_text">
+            Logout</span></a></span>
 
     </body>
 </html>

@@ -9,11 +9,14 @@ import java.sql.{Connection, DriverManager}
 import java.time.format.DateTimeFormatter
 import java.time.LocalDateTime
 
+import scala.collection.mutable.ArrayBuffer
+
 class Application extends Controller {
 
   def index = Action {
     val conn = play.api.db.DB.getConnection()
-    var Games = scala.collection.mutable.Map[String, Map[String, String]]()
+    var Games = ArrayBuffer[Map[String, String]]()
+    //    var Games = scala.collection.mutable.Map[String, Map[String, String]]()
     try {
       val stmt = conn.createStatement
       val rs = stmt.executeQuery("SELECT game.id as gameid, game.id_visitor, game.gametime, visitor.id, visitor.name, visitor.city FROM game JOIN visitor ON game.id_visitor=visitor.id ORDER BY game.gametime")
@@ -28,15 +31,16 @@ class Application extends Controller {
           "day" -> date.getDayOfMonth().toString(),
           "month" -> date.getMonth().toString(),
           "hour" -> date.getHour().toString(),
-          "minute" -> date.getMinute().toString()
+          "minute" -> date.getMinute().toString(),
+          "gameid" -> rs.getString("gameid")
         )
 
-        Games += (rs.getString("gameid") -> Game)
+        Games += Game
       }
     } finally {
       conn.close()
     }
-    Ok(views.html.index(Games.toMap))
+    Ok(views.html.index(Games.toArray))
   }
 
   def facebook = Action { request =>

@@ -35,21 +35,15 @@
                         @for(Game <- Games) {
                             <tr>
                                 <td>@Game("dow")</td>
-                                <td>@Game("month") &nbsp; @Game("day")</td>
-                                <td>@Game("hour"):@Game("minute")&nbsp;</td>
+                                <td>@Game("date")</td>
+                                <td>@Game("time")</td>
                                 <td class="@Game("name").toLowerCase"><span class="teamname">@Game("city") &nbsp; @Game("name")</span></td>
                                 <td class="interests">
-                                    <label for="interest_yes_@Game("gameid")" class="cb-enable selected">
-                                        <span>Yes</span>
-                                    </label>
+                                    <label for="interest_yes_@Game("gameid")" class="yes_interest">Yes</label>
                                     <input type="radio" id="interest_yes_@Game("gameid")" name="interest_@Game("gameid")" value="yes" /> &nbsp;&nbsp;
-                                    <label for="interest_maybe_@Game("gameid")" class="cb-disable">
-                                        <span>Maybe</span>
-                                    </label>
+                                    <label for="interest_maybe_@Game("gameid")" class="maybe_interest">Maybe</label>
                                     <input type="radio" id="interest_maybe_@Game("gameid")" name="interest_@Game("gameid")" value="maybe" /> &nbsp; &nbsp;
-                                    <label for="interest_no_@Game("gameid")" class="cb-disable">
-                                        <span>No</span>
-                                    </label>
+                                    <label for="interest_no_@Game("gameid")" class="no_interest">No</label>
                                     <input type="radio" id="interest_no_@Game("gameid")" name="interest_@Game("gameid")" value="no" />
                                 </td>
                             </tr>
@@ -60,12 +54,17 @@
         </div>
 
         <span id="fbLogout" onclick="fbLogout()"><a class="fb_button fb_button_medium"><span class="fb_button_text">
-            Logout</span></a></span>
+            Logout</span>
+        </a>
+        </span>
 
         <script src="/assets/javascripts/fb.js" type="text/javascript"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js" type="text/javascript"></script>
         <script src="/assets/javascripts/main.js" type="text/javascript"></script>
         <script src="/assets/javascripts/auth.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/Interest.js" type="text/javascript"></script>
 
     </body>
 </html>

@@ -6,31 +6,33 @@ import play.api.mvc._
 import play.api.Play.current
 import play.api.libs.json._
 import java.sql.{Connection, DriverManager}
-import java.time.format.DateTimeFormatter
-import java.time.LocalDateTime
 import scala.collection.mutable.ArrayBuffer
+import java.time.format._
+import java.time.LocalDateTime
 
 class Application extends Controller {
 
   def index = Action {
     val conn = play.api.db.DB.getConnection()
     var Games = ArrayBuffer[Map[String, String]]()
-    //    var Games = scala.collection.mutable.Map[String, Map[String, String]]()
     try {
       val stmt = conn.createStatement
       val rs = stmt.executeQuery("SELECT game.id as gameid, game.id_team, game.gametime, team.id, team.name, team.city FROM game JOIN team ON game.id_team=team.id ORDER BY game.gametime")
       while (rs.next()) {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S")
         val date = LocalDateTime.parse(rs.getString("gametime"), formatter)
+
+        val fmt = DateTimeFormatter.ofPattern("h:mm a")
+        val fmtDOW = DateTimeFormatter.ofPattern("EEE")
+        val fmtDate = DateTimeFormatter.ofPattern("MMM d")
+
         val Game = scala.collection.immutable.Map(
           "name" -> rs.getString("name"),
           "city" -> rs.getString("city"),
           "id_team" -> rs.getString("id_team"),
-          "dow" -> date.getDayOfWeek().toString(),
-          "day" -> date.getDayOfMonth().toString(),
-          "month" -> date.getMonth().toString(),
-          "hour" -> date.getHour().toString(),
-          "minute" -> date.getMinute().toString(),
+          "dow" -> fmtDOW.format(date),
+          "date" -> fmtDate.format(date),
+          "time" -> fmt.format(date),
           "gameid" -> rs.getString("gameid")
         )
 

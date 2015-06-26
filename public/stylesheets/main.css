@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    color: #666;
+    display: table;
+    font-family: 'Julius Sans One';
+}
+
+.container {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.content {
+    text-align: center;
+    display: inline-block;
+}
+
+.title {
+    font-size: xx-large;
+    margin-bottom: large;
+}
+
+.quote {
+    font-size: large;
+}
+
+.game {
+    color: #333;
+    font-size: large;
+}
+
+.cardinals {
+    color: #C41E3A;
+}
+
+.dodgers {
+    color: #005596;
+}
+
+.matchups-container {
+    text-align: left;
+    color: #333;
+    font-size: larger;
+}
+
+.header {
+    /*font-weight: 600;*/
+}
+
+.yes_interest {
+    color: limegreen;
+}
+
+.maybe_interest {
+    color: orange;
+}
+
+.no_interest {
+    color: red;
+}
+
+.teamname {
+    /*font-weight: 300;*/
+}

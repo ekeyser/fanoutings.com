@@ -1,0 +1,71 @@
+@(Games: Array[Map[String, String]])
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>FanOutings</title>
+        <link href='//fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'>
+        <link href="/assets/stylesheets/main.css" rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div id="fb-root"></div>
+
+            <!--<div-->
+            <!--    class="fb-like"-->
+            <!--    data-share="true"-->
+            <!--    data-width="450"-->
+            <!--    data-show-faces="true">-->
+            <!--</div>-->
+
+        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+
+        <div id="status"></div>
+
+        <div class="container">
+            <div class="content">
+                <div class="title"><span class="title">FantOutings</span></div>
+                <div class="matchups-container">
+                    <table>
+                        <tr class="header">
+                            <td>Day</td>
+                            <td>Date</td>
+                            <td>Time</td>
+                            <td>Visiting Team</td>
+                            <td>Interest Level</td>
+                        </tr>
+                        @for(Game <- Games) {
+                            <tr>
+                                <td>@Game("dow")</td>
+                                <td>@Game("month") &nbsp; @Game("day")</td>
+                                <td>@Game("hour"):@Game("minute")&nbsp;</td>
+                                <td class="@Game("name").toLowerCase"><span class="teamname">@Game("city") &nbsp; @Game("name")</span></td>
+                                <td class="interests">
+                                    <label for="interest_yes_@Game("gameid")" class="cb-enable selected">
+                                        <span>Yes</span>
+                                    </label>
+                                    <input type="radio" id="interest_yes_@Game("gameid")" name="interest_@Game("gameid")" value="yes" /> &nbsp;&nbsp;
+                                    <label for="interest_maybe_@Game("gameid")" class="cb-disable">
+                                        <span>Maybe</span>
+                                    </label>
+                                    <input type="radio" id="interest_maybe_@Game("gameid")" name="interest_@Game("gameid")" value="maybe" /> &nbsp; &nbsp;
+                                    <label for="interest_no_@Game("gameid")" class="cb-disable">
+                                        <span>No</span>
+                                    </label>
+                                    <input type="radio" id="interest_no_@Game("gameid")" name="interest_@Game("gameid")" value="no" />
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <span id="fbLogout" onclick="fbLogout()"><a class="fb_button fb_button_medium"><span class="fb_button_text">
+            Logout</span></a></span>
+
+        <script src="/assets/javascripts/fb.js" type="text/javascript"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/main.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/auth.js" type="text/javascript"></script>
+
+    </body>
+</html>

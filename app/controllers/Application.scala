@@ -9,6 +9,7 @@ import java.sql.{Connection, DriverManager}
 import scala.collection.mutable.ArrayBuffer
 import java.time.format._
 import java.time.LocalDateTime
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient
 
 class Application extends Controller {
 
@@ -60,7 +61,7 @@ class Application extends Controller {
         if (something) {
         } else {
           val stmt = conn.createStatement
-          val rs = stmt.executeUpdate("INSERT INTO user (email, fname, lname, authprov_uid, id_authprov) values ('" + email + "', '" + fname + "', '" + lname + "', '" + authprov_uid + "', 1)")
+          stmt.executeUpdate("INSERT INTO user (email, fname, lname, authprov_uid, id_authprov) values ('" + email + "', '" + fname + "', '" + lname + "', '" + authprov_uid + "', 1)")
         }
       } finally {
         conn.close()
